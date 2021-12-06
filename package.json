@@ -1,0 +1,20 @@
+{
+  "name": "dsl-project-plus-plus",
+  "version": "1.0.0",
+  "description": "dsl for describe projects",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "echo \"init compiler project plus plus...\" && node index.js"
+  },
+  "keywords": [
+    "dsl",
+    "ohm",
+    "projects"
+  ],
+  "author": "jcaviedesc",
+  "license": "ISC",
+  "dependencies": {
+    "ohm-js": "^16.0.0"
+  }
+}

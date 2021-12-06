@@ -1,0 +1,21 @@
+ProjectPlusPlusGrammar {
+    ProjectStatement = "PROYECTO" openBracket KeyAndValue* closeBracket
+    
+    openBracket = "["
+    
+    closeBracket = "]"
+    
+    KeyAndValue = Key colon Value semicolon
+
+    Key = #(letter alnum+)
+
+    Value = #(digit+) | #(letter+) | alnum+
+
+    colon = ":"
+    
+    semicolon = ";"
+
+    comment
+      = "/*" (~"*/" any)* "*/"  -- multiLine
+      | "#" (~"\n" any)*       -- singleLine
+}
