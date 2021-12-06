@@ -7,9 +7,9 @@ ProjectPlusPlusGrammar {
     
     KeyAndValue = Key colon Value semicolon
 
-    Key = #(letter alnum+)
+    Key = #(letter+)
 
-    Value = #(digit+) | #(letter+) | alnum+
+    Value = #(digit+) | (letter+) | alnum+
 
     colon = ":"
     

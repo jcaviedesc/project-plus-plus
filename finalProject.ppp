@@ -1,0 +1,42 @@
+#A simple DSL for Projects Planning.
+#Author: Fran Ernesto Romero
+PROYECTO[
+Codigo: 2001;
+Nombre: Lenguaje de Dominio Especifico;
+Actividades: [1001, 1002];
+]
+#This is an activity. 
+ACTIVIDAD[
+Codigo: 1001;
+Nombre: Compra de equipos;
+Inicia: 7/09/2021;
+Termina: 8/09/2021;
+Responsable: [1234, 789];
+Recursos: [78,43];
+]
+ACTIVIDAD[
+Codigo: 1002;
+Nombre: Configuración de equipos;
+Inicia: 7/09/2021;
+Termina: 8/09/2021;
+Responsable: [1234, 789];
+Recursos: [78,43];
+]
+PERSONA[
+Codigo: 1234;
+Nombre: Fran Romero;
+Rol: Gerente;
+]
+PERSONA[
+Codigo: 789;
+Nombre: Albert Einstein;
+Rol: Director Financiero;
+]
+RECURSO[
+Codigo: 78;
+Nombre: Computador;
+]
+RECURSO[
+Codigo: 43;
+Nombre: Proyector;
+]
