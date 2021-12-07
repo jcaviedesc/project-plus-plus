@@ -1,5 +1,6 @@
 const fs = require('fs');
 const ohm = require('ohm-js');
+const { exec } = require("child_process");
 const Handlebars = require("handlebars");
 const tmplhtml = fs.readFileSync(require.resolve('./template.html'), 'utf8')
 const contents = fs.readFileSync('src/projectppGrammar.ohm', 'utf-8');
@@ -79,13 +80,26 @@ if (m.succeeded()) {
 
   const template = Handlebars.compile(tmplhtml);
   const content = template({ dataProject: parseProject.proyecto });
-  fs.writeFile('build/index.html', content, function (err, data) {
+  const outputFile = 'build/index.html'
+  fs.writeFile(outputFile, content, function (err, data) {
     if (err) {
       return console.log(err);
     }
   });
 
-  console.log('¡Nice!😁. Project plus plus was compile successfully.');
+  console.log('¡Nice!😁. Project plus plus was compile successfully.\n');
+  // open navegador con el gantt chart
+  exec(`open ${outputFile}`, (error, stdout, stderr) => {
+    if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+})
+
 } else {
   console.log("wrong syntax ☹️! \n");
   console.log(m.message)
