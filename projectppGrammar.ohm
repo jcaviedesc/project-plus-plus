@@ -1,5 +1,13 @@
 ProjectPlusPlusGrammar {
-    ProjectStatement = "PROYECTO" openBracket KeyAndValue* closeBracket
+    DocProject = ProjectStatement ActivityStatement* PersonStatement* ResourceStatement*
+
+    ProjectStatement =  "PROYECTO" openBracket KeyAndValue* closeBracket
+
+    ActivityStatement = "ACTIVIDAD" openBracket KeyAndValue* closeBracket
+
+    PersonStatement = "PERSONA" openBracket KeyAndValue* closeBracket
+
+    ResourceStatement =  "RECURSO" openBracket KeyAndValue* closeBracket
     
     openBracket = "["
     
@@ -9,13 +17,40 @@ ProjectPlusPlusGrammar {
 
     Key = #(letter+)
 
-    Value = #(digit+) | (letter+) | alnum+
+    Value = DateLiteral | ArrayLiteral | Sentence | digit+
+
+    Sentence = alnum+ 
+
+    ArrayLiteral = "[" ListOf<digit+, ","> "]"
+
+    DateLiteral =  digit digit? "/" digit digit "/" digit digit digit digit
 
     colon = ":"
     
     semicolon = ";"
 
-    comment
-      = "/*" (~"*/" any)* "*/"  -- multiLine
-      | "#" (~"\n" any)*       -- singleLine
+    sourceCharacter = any
+
+    // Override Ohm's built-in definition of space.
+    space := whitespace | lineTerminator | comment
+    
+    whitespace = "\t"
+             | "\x0B"    -- verticalTab
+             | "\x0C"    -- formFeed
+             | " "
+             | "\u00A0"  -- noBreakSpace
+             | "\uFEFF"  -- byteOrderMark
+             | unicodeSpaceSeparator
+    
+    lineTerminator = "\n" | "\r" | "\u2028" | "\u2029"
+    
+    lineTerminatorSequence = "\n" | "\r" ~"\n" | "\u2028" | "\u2029" | "\r\n"
+
+    unicodeSpaceSeparator = "\u2000".."\u200B" | "\u3000"
+
+    comment = multiLineComment | singleLineComment
+
+    multiLineComment = "/*" (~"*/" sourceCharacter)* "*/"   -- multiLine
+    singleLineComment = "#" (~lineTerminator sourceCharacter)*  -- singleLine
+    
 }
